@@ -1,0 +1,58 @@
+name: Excavator
+
+# Checks the fork's latest GitHub release and updates the manifests in bucket/
+# (version, url, hash) using Scoop's own checkver/autoupdate, then commits.
+on:
+  schedule:
+    - cron: '20 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: excavator
+  cancel-in-progress: false
+
+jobs:
+  excavate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Scoop
+        shell: pwsh
+        run: |
+          Invoke-RestMethod -Uri https://get.scoop.sh -OutFile "$env:RUNNER_TEMP\install-scoop.ps1"
+          & "$env:RUNNER_TEMP\install-scoop.ps1" -RunAsAdmin
+          "$env:USERPROFILE\scoop\shims" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+
+      - name: Check versions and update manifests
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $env:SCOOP_HOME = "$env:USERPROFILE\scoop\apps\scoop\current"
+          & "$env:SCOOP_HOME\bin\checkver.ps1" -App * -Dir "$env:GITHUB_WORKSPACE\bucket" -Update
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Validate manifests
+        shell: pwsh
+        run: |
+          Get-ChildItem bucket\*.json | ForEach-Object { $null = Get-Content $_ -Raw | ConvertFrom-Json }
+
+      - name: Commit changes
+        shell: pwsh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          $changed = git status --porcelain -- bucket
+          if (!$changed) { 'No manifest changes.'; exit 0 }
+          foreach ($line in $changed) {
+            $file = $line.Substring(3)
+            $app = [IO.Path]::GetFileNameWithoutExtension($file)
+            $version = (Get-Content $file -Raw | ConvertFrom-Json).version
+            git add -- $file
+            git commit -m "${app}: Update to version $version"
+          }
+          git push
