@@ -1,10 +1,23 @@
 # scoop-hj
 
-[Scoop](https://scoop.sh) bucket for the **hj fork of Git Extensions**
-([5solas/gitextensions](https://github.com/5solas/gitextensions)): an in-process
-Ghostty console tab and faster repository opening.
+[Scoop](https://scoop.sh) bucket for the owner's forks:
 
-## Install
+| App | Fork | Command |
+|---|---|---|
+| `gitextensions-hj` | [5solas/gitextensions](https://github.com/5solas/gitextensions): in-process Ghostty console tab, faster repository opening | `gite-hj` |
+| `gitui-hj` | [5solas/gitui](https://github.com/5solas/gitui): gitui with worktree management (list/create/delete/prune) | `gitui-hj` |
+
+## Install gitui-hj
+
+```powershell
+scoop bucket add hj https://github.com/5solas/scoop-hj
+scoop install hj/gitui-hj
+gitui-hj
+```
+
+It can sit next to `main/gitui`; the command is `gitui-hj`.
+
+## Install gitextensions-hj
 
 ```powershell
 scoop bucket add hj https://github.com/5solas/scoop-hj
