@@ -1,13 +1,13 @@
 {
-    "version": "0.28.1-hj-1",
+    "version": "0.28.1-hj-2",
     "description": "gitui hj fork: terminal client for Git with worktree management.",
     "homepage": "https://github.com/5solas/gitui",
     "license": "MIT",
     "notes": "Run it with 'gitui-hj'. It can be installed next to main/gitui.",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/5solas/gitui/releases/download/hj/v0.28.1-hj-1/gitui-hj-win-x64-0.28.1-hj-1.zip",
-            "hash": "e360b705ab283dced7c7238b88246bf116e8189d375f8ca4c080a5b27f8e96b1"
+            "url": "https://github.com/5solas/gitui/releases/download/hj/v0.28.1-hj-2/gitui-hj-win-x64-0.28.1-hj-2.zip",
+            "hash": "6ef14c5fe0c78ac7f880e0fa5a7795b8186491c242852eaa17c0c6a4e73e65d2"
         }
     },
     "bin": [
