@@ -1,5 +1,5 @@
 {
-    "version": "7.3.0.8",
+    "version": "7.3.0.9",
     "description": "Git Extensions hj fork: Ghostty console and faster repository opening.",
     "homepage": "https://github.com/5solas/gitextensions",
     "license": "GPL-3.0-only",
@@ -9,8 +9,8 @@
     },
     "architecture": {
         "64bit": {
-            "url": "https://github.com/5solas/gitextensions/releases/download/hj/v7.3.0-hj-8/GitExtensions-Portable-x64-7.3.0.8-hj-8-65fb1805a.zip",
-            "hash": "0a4461543116f069127078c9d10d4593aa53e03094ee36fc3bbc149167575e9e"
+            "url": "https://github.com/5solas/gitextensions/releases/download/hj/v7.3.0-hj-9/GitExtensions-Portable-x64-7.3.0.9-hj-9-e1456f86c.zip",
+            "hash": "1393849f0c16eb5284a246faf259d42b65b791d6838d74bbc39c113abcea28ac"
         }
     },
     "pre_install": "if (!(Test-Path \"$persist_dir\\GitExtensions.settings\")) { New-Item \"$dir\\GitExtensions.settings\" | Out-Null }",
